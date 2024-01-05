@@ -1,28 +1,42 @@
 <template>
   <div class="app-content">
     <div v-if="editor" class="toolbar">
-      <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+      <button
+        @click="editor.chain().focus().toggleBold().run()"
+        :class="{ 'is-active': editor.isActive('bold') }"
+      >
         加粗
       </button>
-      <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+      <button
+        @click="editor.chain().focus().toggleItalic().run()"
+        :class="{ 'is-active': editor.isActive('italic') }"
+      >
         倾斜
       </button>
-      <input type="color" v-model="color">
-      <button @click="editor.chain().focus().setColor(color).run()"
-        :class="{ 'is-active': editor.isActive('textColor') }">
+      <input type="color" v-model="color" />
+      <button
+        @click="editor.chain().focus().setColor(color).run()"
+        :class="{ 'is-active': editor.isActive('textColor') }"
+      >
         设置颜色
       </button>
       <button @click="editor.chain().focus().unsetColor().run()">
         清除颜色
       </button>
-      <input type="number" v-model="fontSize">
+      <input type="number" v-model="fontSize" />
       <button @click="editor.chain().focus().setSize(fontSize).run()">
         调整字号
       </button>
-      <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
+      <button
+        @click="editor.chain().focus().undo().run()"
+        :disabled="!editor.can().chain().focus().undo().run()"
+      >
         撤销
       </button>
-      <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
+      <button
+        @click="editor.chain().focus().redo().run()"
+        :disabled="!editor.can().chain().focus().redo().run()"
+      >
         还原
       </button>
     </div>
@@ -31,26 +45,27 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onBeforeUnmount, ref } from "vue"
-import { Editor, EditorContent } from '@tiptap/vue-3'
-import UnityKit from "@766aya/unity-kit"
+import { onMounted, onBeforeUnmount, ref } from "vue";
+import { Editor, EditorContent } from "@tiptap/vue-3";
+import UnityKit from "@766aya/unity-kit";
 
-const color = ref()
-const fontSize = ref(1)
+const color = ref();
+const fontSize = ref(1);
 
 const editor = new Editor({
   extensions: [UnityKit.configure({})],
   parseOptions: {},
-  content: '1<b>23</b><i>45</i><color>67</color><color style="--color: #ff0000">89</color>01',
-})
+  content:
+    '1<b>23</b><i>45</i><color>67</color><color style="--color: #ff0000">89</color>01',
+});
 
 onMounted(() => {
   // console.log(editor)
-})
+});
 
 onBeforeUnmount(() => {
-  editor.destroy()
-})
+  editor.destroy();
+});
 </script>
 
 <style lang="scss">
@@ -83,7 +98,7 @@ body {
     overflow: hidden;
     display: flex;
 
-    >.ProseMirror {
+    > .ProseMirror {
       width: 100%;
       min-height: 100%;
       display: inline-block;
